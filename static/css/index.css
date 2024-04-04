@@ -1,0 +1,158 @@
+.video {
+    position: relative;
+    padding-bottom: 56.25%;
+    z-index: 1;
+}
+
+.video_media {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.intro {
+    max-height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.intro:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.4);
+    height: 100%;
+    width: 100%;
+}
+
+.intro_content {
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.intro-title {
+    font-size: 45px;
+    color: #fff;
+    margin: 0;
+    text-align: center;
+}
+
+.nav {
+    display: flex;
+    margin-left: 700px;
+    left: 45px;
+    top: 1213px;
+}
+
+.nav a {
+    color: white;
+    margin-left: 60px;
+    font-size: 18px;
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    transition: all .55s ease;
+    margin-right: 40px;
+    text-align: center;
+}
+
+.nav a:hover {
+    border-bottom: 2px solid white;
+}
+
+header {
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 40px 9%;
+    background-color: rgba(0, 0, 0, 0.4);
+    height: 50px;
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: 700;
+    color: white;
+    top: 38px;
+    left: 130px;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    list-style: none;
+    text-decoration: none;
+}
+
+.intro-text {
+    color: white;
+    font-size: 40px;
+    font-weight: 700;
+    text-align: left; /* Change text alignment to left */
+    position: absolute;
+    top: 286px;
+    left: 227px;
+    z-index: 3;
+}
+
+.buttons {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 30px;
+}
+
+.buttons a {
+    padding: 10px 20px;
+    border: 1px solid white;
+    border-radius: 17px; /* Added border-radius property */
+    color: white;
+    margin: 0 19px;
+    font-size: 21px;
+    transition: all .3s ease;
+}
+
+.buttons a:hover {
+    background-color: white;
+    color: #214320;
+    transform: scale(1.05);
+}
+
+h1 {
+    font-size: 140px;
+    text-align: left;
+}
+
+.search-icon {
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    z-index: 4;
+}
+
+.search-icon img:hover {
+    transform: scale(1.2); /* Увеличивает размер изображения на 20% */
+    transition: all 0.2s ease-in-out;
+}
