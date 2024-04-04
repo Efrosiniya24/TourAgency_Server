@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const registerButton = document.getElementById('signUp');
+    const registerButton = document.getElementById('signIn');
 
     registerButton.addEventListener('click', function(event) {
         event.preventDefault();
-        window.location.href = '/signUp';
+        window.location.href = '/login';
     });
 });

@@ -8,3 +8,7 @@ class MainPage(TemplateView):
 
 class Login(TemplateView):
     template_name = "login.html"
+
+
+class SignUp(TemplateView):
+    template_name = "registration.html"
