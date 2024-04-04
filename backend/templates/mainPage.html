@@ -2,33 +2,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="{% static '/css/index.css' %}">
-  <title>World</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="{% static '/css/index.css' %}">
+    <script src="{% static 'js/mainPage.js' %}" defer></script>
+    <title>World</title>
 </head>
 <body>
 <header>
-  <a href="/backend/templates/statictes/static" class="logo">WORLD</a>
-  <ul class="nav">
-    <li><a href="#">Главная</a></li>
-    <li><a href="/about/">О нас</a></li>
-    <li><a href="#">Туры</a></li>
-    <li><a href="#">Гостиницы</a></li>
-  </ul>
+    <a href="/backend/templates/statics/static" class="logo">WORLD</a>
+    <ul class="nav">
+        <li><a href="#">Главная</a></li>
+        <li><a href="/about/">О нас</a></li>
+        <li><a href="#">Туры</a></li>
+        <li><a href="#">Гостиницы</a></li>
+    </ul>
 </header>
 <div class="intro">
-  <div class="video">
-    <video class="video_media" src="{% static 'Video/beach.mp4' %}" autoplay muted loop></video>
-  </div>
-  <div class="intro-text">
-    <h1>WORLD</h1>
-    <p>Вдохновение в путешествиях</p>
-    <div class="buttons">
-      <a href="#">Посмотреть туры</a>
-      <a href="#">Войти</a>
+    <div class="video">
+        <video class="video_media" src="{% static 'Video/beach.mp4' %}" autoplay muted loop></video>
     </div>
-  </div>
+    <div class="intro-text">
+        <h1>WORLD</h1>
+        <p>Вдохновение в путешествиях</p>
+        <div class="buttons">
+            <a href="#">Посмотреть туры</a>
+            <a href="#" id="loginButton">Войти</a>
+        </div>
+    </div>
 </div>
 </body>
 </html>
