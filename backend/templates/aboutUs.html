@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="{% static '/css/aboutUs.css' %}"/>
+    <link rel="stylesheet" href="{% static '/css/header.css' %}">
+    <link rel="stylesheet" href="{% static '/css/index.css' %}">
+    <script src="{% static 'js/header.js' %}" defer></script>
+    <title>About us</title>
+</head>
+<body>
+<header class="headerNotMain">
+    <a href="/static" class="logo">WORLD</a>
+    <ul class="nav">
+        <li><a href="#" id="MainPageButton">Главная</a></li>
+        <li><a href="#" id="AboutUsButton"> О нас</a></li>
+        <li><a href="#">Туры</a></li>
+        <li><a href="#">Гостиницы</a></li>
+    </ul>
+    <div class="search-icon">
+        <img src="{% static '/photo/search.png' %}" width="20" height="20" alt="">
+    </div>
+</header>
+<main>
+    <div class="first-clide">
+        <div class="rectangle">
+            <img src="../../static/photo/we.jpg">
+            <h3>Наша <br>история</h3>
+            <p>Турагентство WORLD было основано в 2016 году группой друзей,
+                которые были объединены общей страстью к путешествиям. Мы
+                начинали с небольшого офиса, но за эти годы мы выросли в одну
+                из ведущих туроператоров в стране. За 7 лет мы отправили в
+                незабываемые поездки более 40 000 человек, открыв им красоту
+                300+ уникальных направлений</p>
+            <div class="p_inColor">
+                <h3>Мы работаем для того,<br>
+                    чтобы ваши мечты о путешествиях стали<br>
+                    реальностью!
+                </h3>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

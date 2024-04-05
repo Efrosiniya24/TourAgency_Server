@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.views.generic import TemplateView
 
 
@@ -12,3 +11,7 @@ class Login(TemplateView):
 
 class SignUp(TemplateView):
     template_name = "registration.html"
+
+
+class AboutUs(TemplateView):
+    template_name = 'aboutUs.html'
