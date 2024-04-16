@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'backend.api'
+    'backend.myapi'
 ]
 
 MIDDLEWARE = [
@@ -78,7 +78,11 @@ WSGI_APPLICATION = 'ZinkovskayaEV_214301.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'touragency2',
+        'USER': 'root',
+        'PASSWORD': '1111',
+        'HOST': 'localhost',
+        'PORT': '3306'
     }
 }
 

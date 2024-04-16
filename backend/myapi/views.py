@@ -15,3 +15,7 @@ class SignUp(TemplateView):
 
 class AboutUs(TemplateView):
     template_name = 'aboutUs.html'
+
+
+class MainAdmin(TemplateView):
+    template_name = 'mainAdmin.html'

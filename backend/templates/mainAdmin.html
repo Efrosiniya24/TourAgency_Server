@@ -1,11 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="static/css/mainAdmin.css">
-    <link rel="stylesheet" href="static/css/header.css">
+    <link rel="stylesheet" href="{% static '/css/mainAdmin.css' %}">
+    <link rel="stylesheet" href="{% static '/css/header.css' %}">
 </head>
 <body>
 <header class="headerNotMain">
@@ -19,25 +20,25 @@
     <div class="container">
         <div class="top-row">
             <div class="card">
-                <img src="static/photo/analytic.png">
+                <img src="{% static '/photo/../../static/photo/analytic.png' %}">
                 <p>Аналитика</p>
             </div>
             <div class="card">
-                <img src="static/photo/application.png" alt="Заявки"> <!-- Replace with actual image path -->
+                <img src="{% static '/photo/application.png' %}">
                 <p>Заявки</p>
             </div>
             <div class="card">
-                <img src="static/photo/travel.png" alt="Туры"> <!-- Replace with actual image path -->
+                <img src="{% static '/photo/travel.png' %}">
                 <p>Туры</p>
             </div>
         </div>
         <div class="bottom-row">
             <div class="card">
-                <img src="static/photo/report.png" alt="Отчет"> <!-- Replace with actual image path -->
+                <img src="{% static '/photo/report.png' %}">
                 <p>Отчет</p>
             </div>
             <div class="card">
-                <img src="static/photo/database.png" alt="База данных"> <!-- Replace with actual image path -->
+                <img src="{% static '/photo/database.png' %}">
                 <p>База данных</p>
             </div>
         </div>

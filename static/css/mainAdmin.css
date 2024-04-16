@@ -42,9 +42,14 @@ main {
 
 
 .card img {
-    width: 140px; /* Adjust as needed */
+    width: 140px;
     height: auto;
     margin-top: 20px;
+    transition: transform 0.3s ease;
+}
+
+.container .card:hover img { /* Increased specificity */
+    transform: scale(1.1);
 }
 
 .card p {
