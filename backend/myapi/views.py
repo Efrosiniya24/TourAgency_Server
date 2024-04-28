@@ -2,20 +2,20 @@ from django.views.generic import TemplateView
 
 
 class MainPage(TemplateView):
-    template_name = 'mainPage.html'
+    pass
 
 
 class Login(TemplateView):
-    template_name = "login.html"
+    pass
 
 
 class SignUp(TemplateView):
-    template_name = "registration.html"
+    pass
 
 
 class AboutUs(TemplateView):
-    template_name = 'aboutUs.html'
+    pass
 
 
 class MainAdmin(TemplateView):
-    template_name = 'mainAdmin.html'
+    pass

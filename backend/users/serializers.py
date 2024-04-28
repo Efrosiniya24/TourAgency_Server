@@ -1,12 +1,12 @@
 from rest_framework import serializers
 
-from backend.users.models import User
+from .models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'name', 'email', 'password']
+        fields = ['id', 'name', 'email', 'phone', 'password']
         extra_kwargs = {
             'password': {'write_only': True}
         }
