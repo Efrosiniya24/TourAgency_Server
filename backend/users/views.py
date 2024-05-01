@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.utils import timezone
+from rest_framework import status
 from rest_framework.views import APIView
 from .serializers import UserSerializer
 from rest_framework.views import Response
@@ -30,8 +32,8 @@ class SignIn(APIView):
 
         payload = {
             'id': user.id,
-            'exp': datetime.datetime.now(datetime.UTC) + datetime.timedelta(minutes=60),
-            'iat': datetime.datetime.now(datetime.UTC)
+            'exp': timezone.now() + timezone.timedelta(minutes=60),
+            'iat': datetime.datetime.utcnow()
 
         }
 
@@ -40,6 +42,7 @@ class SignIn(APIView):
         response.set_cookie(key='jwt', value=token, httponly=True)
         response.data = {'jwt': token}
         return response
+
 
 
 class UserView(APIView):
@@ -79,12 +82,30 @@ class AllUsersView(APIView):
 
 class SearchUserView(APIView):
     def get(self, request):
+        # Получаем параметры запроса из URL
         query_params = request.query_params
-        name_starts_with = query_params.get('name_starts_with', None)
 
-        if name_starts_with is None:
-            return Response({"error": "Parameter 'name_starts_with' is required"}, status=status.HTTP_400_BAD_REQUEST)
+        # Извлекаем значения полей Имя, Фамилия и Отчество из запроса
+        name = query_params.get('name')
+        last_name = query_params.get('last_name')
+        patronymic = query_params.get('patronymic')
 
-        users = User.objects.filter(name__istartswith=name_starts_with)
+        # Создаем словарь для хранения фильтров
+        filters = {}
+
+        # Добавляем фильтры для существующих значений
+        if name:
+            filters['name__icontains'] = name
+        if last_name:
+            filters['last_name__icontains'] = last_name
+        if patronymic:
+            filters['patronymic__icontains'] = patronymic
+
+        # Поиск пользователей в базе данных
+        users = User.objects.filter(**filters)
+
+        # Сериализация найденных пользователей
         serializer = UserSerializer(users, many=True)
+
+        # Возвращаем данные пользователей в формате JSON
         return Response(serializer.data)
