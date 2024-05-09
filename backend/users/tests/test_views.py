@@ -1,5 +1,6 @@
 import datetime
 from unittest import TestCase
+from unittest.mock import patch
 
 from django.utils import timezone
 from rest_framework.test import APITestCase, APIClient
@@ -10,6 +11,7 @@ from rest_framework.response import Response
 import jwt
 
 from backend.users.models import User
+
 
 class SignUpTestCase(APITestCase):
     def test_user_registration(self):
@@ -28,46 +30,31 @@ class SignUpTestCase(APITestCase):
         self.assertEqual(response.data['email'], data['email'])
 
 
-class SignInTestCase(APITestCase):
+class UserViewTestCase(TestCase):
     def setUp(self):
-        self.user = get_user_model().objects.create(
-            email='teest@example.com',
-            password='teestpassword',
-            name='Teest',
-            phone='11234567890',
-            surname='TeestSurname',
-            patronymic='TeestPatronymic'
+        self.client = APIClient()
+        self.user = User.objects.create(
+            email='test@example.com',
+            password='testpassword',
+            name='Test',
+            phone='1234567890',
+            surname='TestSurname',
+            patronymic='TestPatronymic'
         )
-        self.signin_url = reverse('signIn')
+        self.token = 'test_token'
 
-    def test_user_signin(self):
-        # Создаем тестового пользователя
-        user = get_user_model().objects.create(
-            email='teest@example.com',
-            password='teestpassword',
-            name='Teest',
-            phone='11234567890',
-            surname='TeestSurname',
-            patronymic='TeestPatronymic'
-        )
+    @patch('backend.users.views.jwt.decode')
+    def test_get_user_authenticated(self, mock_jwt_decode):
+        mock_jwt_decode.return_value = {'id': self.user.id}
+        url = reverse('user-view')
+        response = self.client.get(url, HTTP_COOKIE=f'jwt={self.token}')
 
-        # Отправляем POST запрос для входа пользователя
-        data = {'email': 'test@example.com', 'password': 'testpassword'}
-        response = self.client.post(self.signin_url, data, format='json')
-
-        # Проверяем успешный ли был вход (HTTP статус код 200)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['name'], self.user.name)
+        self.assertEqual(response.data['email'], self.user.email)
 
-        # Проверяем наличие токена в ответе
-        self.assertIn('jwt', response.data)
+    def test_get_user_unauthenticated(self):
+        url = reverse('user-view')
+        response = self.client.get(url)
 
-        # Декодируем токен для проверки содержимого
-        token = response.data['jwt']
-        decoded_token = jwt.decode(token, 'secret', algorithms=['HS256'])
-
-        # Проверяем корректность данных в токене
-        self.assertEqual(decoded_token['id'], user.id)
-        self.assertTrue('exp' in decoded_token)
-        self.assertTrue('iat' in decoded_token)
-        exp_time = datetime.datetime.fromtimestamp(decoded_token['exp'])
-        self.assertTrue(exp_time > timezone.now())
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)

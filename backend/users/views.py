@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from django.utils import timezone
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.views import APIView
 from .serializers import UserSerializer
 from rest_framework.views import Response
 from rest_framework.exceptions import AuthenticationFailed
 from .models import User
 import jwt, datetime
+from django.db.models import Q
+import time
 
 
 class SignUp(APIView):
@@ -44,7 +46,6 @@ class SignIn(APIView):
         return response
 
 
-
 class UserView(APIView):
     def get(self, request):
         token = request.COOKIES.get('jwt')
@@ -80,32 +81,28 @@ class AllUsersView(APIView):
         return Response(serializer.data)
 
 
-class SearchUserView(APIView):
-    def get(self, request):
-        # Получаем параметры запроса из URL
-        query_params = request.query_params
+class UserSearch(generics.ListAPIView):
+    serializer_class = UserSerializer
 
-        # Извлекаем значения полей Имя, Фамилия и Отчество из запроса
-        name = query_params.get('name')
-        last_name = query_params.get('last_name')
-        patronymic = query_params.get('patronymic')
+    def post(self, request, *args, **kwargs):
+        data = request.data
+        name = data.get('name', '')
+        surname = data.get('surname', '')
+        patronymic = data.get('patronymic', '')
 
-        # Создаем словарь для хранения фильтров
-        filters = {}
+        queryset = User.objects.none()
 
-        # Добавляем фильтры для существующих значений
-        if name:
-            filters['name__icontains'] = name
-        if last_name:
-            filters['last_name__icontains'] = last_name
-        if patronymic:
-            filters['patronymic__icontains'] = patronymic
+        if name or surname or patronymic:
+            # Формируем Q-объекты для поиска по каждому параметру
+            query = Q()
+            if name:
+                query |= Q(name__icontains=name)
+            if surname:
+                query |= Q(surname__icontains=surname)
+            if patronymic:
+                query |= Q(patronymic__icontains=patronymic)
 
-        # Поиск пользователей в базе данных
-        users = User.objects.filter(**filters)
+            queryset = User.objects.filter(query)
 
-        # Сериализация найденных пользователей
-        serializer = UserSerializer(users, many=True)
-
-        # Возвращаем данные пользователей в формате JSON
+        serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
