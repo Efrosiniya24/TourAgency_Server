@@ -11,6 +11,7 @@ from rest_framework.response import Response
 import jwt
 
 from backend.users.models import User
+from backend.users.serializers import UserSerializer
 
 
 class SignUpTestCase(APITestCase):
@@ -58,3 +59,10 @@ class UserViewTestCase(TestCase):
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+class AllUsersView(TestCase):
+    def get(self, request):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
